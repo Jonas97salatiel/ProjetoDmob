@@ -1,105 +1,149 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function App() {
 
-    const [count, setCount] = useState([]);
+    const [display, setDisplay] = useState(' ');
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
+    const [operator, setOperator] = useState(' ');
+    var calc = ' ';
 
-    function clear(){
-      count.pop(count => {
-        return count
-      })
-      setCount(...count);
+    useEffect(() =>{
+
+      setCount2(parseFloat(display));
+
+    }, [calc])
+
+    
+    function handleOperator(operatorOption){
+          
+
+      if( operator == ' ' && !display == ' '){
+        console.log('iniciado equação');
+        switch(operatorOption){     
+          case 'somar':
+            setOperator(operatorOption);
+            setCount1(parseFloat(display));
+            setDisplay(' ');
+            
+          break;
+
+          case 'subtrair':
+            setOperator(operatorOption);
+            setCount1(parseFloat(display));
+            setDisplay(' ');
+            
+          break;
+
+          case 'multiplicar':
+            setOperator(operatorOption);
+            setCount1(parseFloat(display));
+            setDisplay(' ');
+            
+          break;
+
+          case 'dividir':
+            setOperator(operatorOption);
+            setCount1(parseFloat(display));
+            setDisplay(' ');
+            
+          break;
+
+        }
+        
+      }else{
+        console.log('mudando equação');
+        switch(operatorOption){
+          case 'somar':
+            setOperator(operatorOption);
+            
+          break;
+
+          case 'subtrair':
+            setOperator(operatorOption);
+           
+          break;
+
+          case 'multiplicar':
+            setOperator(operatorOption);
+            
+          break;
+
+          case 'dividir':
+            setOperator(operatorOption);
+          
+          break;
+
+        }
+
+      }; 
+
+    };
+
+    function soma(float1, float2){
+      return float1 + float2;
     }
 
-    function heandleZero(){
-      setCount([
-        count,  [0]
-      ]);
-    };
+    function calculation(){
+      calc = 'hora de calcular';
 
-    function heandleOne(){
-      setCount([
-        count,  [1]
-      ]);
-    };
+      if (!display == ' '){
+        
+        
+        switch(operator){
+          case 'somar':
+            console.log(`somando  ${count1} + ${count2}`);
+            
+            const result = soma(count1, count2);
+            setDisplay(result);
+            console.log(display);
+           
+          break;
 
-    function heandleTwo(){
-      setCount([
-        count,  [2]
-      ]);
-    };
+          case 'subtrair':
+            setDisplay( count1 - count2);
+            setCount1(0);
+            setCount2(0);
+           
+          break;
 
-    function heandleThree(){
-      setCount([
-        count, [3]
-      ]);
-    };
+          case 'multiplicar':
+            setDisplay( count1 * count2);
+            setCount1(0);
+            setCount2(0);
+            
+          break;
 
-    function heandleFour(){
-      setCount([
-        count, [4]
-      ]);
-    };
+          case 'dividir':
+            setDisplay( count1 / count2);
+            setCount1(0);
+            setCount2(0);
+          
+          break;
+        }
 
-    function heandleFive(){
-      setCount([
-        count, [5]
-      ]);
-    };
+      }
+      
+    }
 
-    function heandleSix(){
-      setCount([
-        count, [6]
-      ]);
-    };
 
-    function heandleSeven(){
-      setCount([
-        count, [7]
-      ]);
-    };
 
-    function heandleEight(){
-      setCount([
-        count, [8]
-      ]);
-    };
 
-    function heandleNine(){
-      setCount([
-        count,  [9]
-      ]);
-    };
+    function clear(){
 
-    function heandleDote(){
-      setCount([
-        count, ['.']
-      ]);
-    };
+      const clear = display.substring(0, display.length - 1 );
+      setDisplay(clear);
+    }
 
-    function heandleAdicao(){
-      setCount([
-        count, ['+']
-      ]);
-    };
+    function addDisplayer(caracter){
 
-    function heandleSubtracao(){
-      setCount([
-        count, ['-']
-      ]);
-    };
-
-    function heandleDivisao(){
-      setCount([
-        count, ['/']
-      ]);
-    };
-
-    function heandleMultiplicacao(){
-      setCount([
-        count, ['*']
-      ]);
+      if( caracter == '.' && display[display.length - 1] == '.'){
+          setDisplay(display);
+      }else{
+      const addDisplay = display + caracter;
+      setDisplay(addDisplay);
+      };
     };
 
 
@@ -109,71 +153,86 @@ export default function App() {
 
 
       <View name="result" style={styles.calc} >
-  <Text style={styles.result} >{count}</Text>
+  <Text style={styles.result} >{display}</Text>
         </View>
 
       <View name="buttonsLine" style={styles.buttonsLine} >
         <TouchableOpacity style={styles.buttons, styles.buttonsExpand1} onPress={clear} >
           <Text style={styles.symbal}>C</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons}>
+        <TouchableOpacity style={styles.buttons} onPress={calculation}>
           <Text style={styles.symbal} >=</Text>
         </TouchableOpacity>
       </View>
 
       <View name="buttonsLine" style={styles.buttonsLine}>
-      <TouchableOpacity style={styles.buttons} onPress={heandleSeven} >
+      <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('7')} >
           <Text style={styles.numbers} >7</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleEight} >
+        <TouchableOpacity style={styles.buttons}  
+          onPress={() => addDisplayer('8')} >
           <Text style={styles.numbers} >8</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleNine} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('9')} >
           <Text style={styles.numbers} >9</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleAdicao} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => handleOperator('somar')} >
           <Text style={styles.symbal} >+</Text>
         </TouchableOpacity>
       </View>
 
       <View name="buttonsLine" style={styles.buttonsLine}>
-      <TouchableOpacity style={styles.buttons} onPress={heandleFour} >
+      <TouchableOpacity style={styles.buttons} 
+        onPress={() => addDisplayer('4')} >
           <Text style={styles.numbers} >4</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleFive} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('5')} >
           <Text style={styles.numbers}>5</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleSix} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('6')} >
           <Text style={styles.numbers} >6</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleSubtracao} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => handleOperator('subtrair')} >
           <Text style={styles.symbal} >-</Text>
         </TouchableOpacity>
       </View>
 
       <View name="buttonsLine" style={styles.buttonsLine}>
-      <TouchableOpacity style={styles.buttons} onPress={heandleOne} >
+      <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('1')} >
           <Text style={styles.numbers} >1</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleTwo} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('2')} >
           <Text style={styles.numbers} >2</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleThree} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('3')} >
           <Text style={styles.numbers} >3</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleDivisao} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => handleOperator('dividir')} >
           <Text style={styles.symbal} >/</Text>
         </TouchableOpacity>
       </View>
 
       <View name="buttonsLine" style={styles.buttonsLine}>
-      <TouchableOpacity style={styles.buttons, styles.buttonsExpand} onPress={heandleZero} >
+      <TouchableOpacity style={styles.buttons, styles.buttonsExpand} 
+        onPress={() => addDisplayer('0')} >
           <Text style={styles.numbers} >0</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleDote} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('.')} >
           <Text style={styles.symbal} >.</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={heandleMultiplicacao} >
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => handleOperator('multiplicar')} >
           <Text style={styles.symbal} >x</Text>
         </TouchableOpacity>
       </View>

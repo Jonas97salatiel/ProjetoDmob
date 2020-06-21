@@ -1,25 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 export default function App() {
 
     const [display, setDisplay] = useState(' ');
-    const [count1, setCount1] = useState(0);
-    const [count2, setCount2] = useState(0);
+    const [count1, setCount1] = useState();
+    var count2;
     const [operator, setOperator] = useState(' ');
-    var calc = ' ';
+    const [buffer, setBuffer] = useState();
+   
 
-    useEffect(() =>{
 
-      setCount2(parseFloat(display));
-
-    }, [calc])
 
     
     function handleOperator(operatorOption){
           
 
-      if( operator == ' ' && !display == ' '){
+      if( !display == ' '){
         console.log('iniciado equação');
         switch(operatorOption){     
           case 'somar':
@@ -52,11 +49,13 @@ export default function App() {
 
         }
         
-      }else{
+      }else if(!buffer == " "){
         console.log('mudando equação');
         switch(operatorOption){
           case 'somar':
             setOperator(operatorOption);
+            setCount1(buffer);
+            setDisplay(' ');
             
           break;
 
@@ -85,8 +84,11 @@ export default function App() {
       return float1 + float2;
     }
 
+
+    
     function calculation(){
-      calc = 'hora de calcular';
+      
+      count2 = parseFloat(display);
 
       if (!display == ' '){
         
@@ -96,8 +98,11 @@ export default function App() {
             console.log(`somando  ${count1} + ${count2}`);
             
             const result = soma(count1, count2);
-            setDisplay(result);
-            console.log(display);
+            setDisplay(String(result));
+            setBuffer(result);
+            console.log(`count1 = ${count1} `);
+            console.log(`count2 = ${count2} `);
+            console.log(`buffer = ${buffer} `);
            
           break;
 
@@ -134,7 +139,20 @@ export default function App() {
 
       const clear = display.substring(0, display.length - 1 );
       setDisplay(clear);
+      setBuffer(clear);
+      if (clear.length = 0){
+        setBuffer(' ');
+      };
     }
+
+    function reset(){
+
+      setCount1(0);
+      count2 = 0 ;
+      setBuffer(' ');
+      setDisplay(' ');
+
+    };
 
     function addDisplayer(caracter){
 
@@ -157,8 +175,11 @@ export default function App() {
         </View>
 
       <View name="buttonsLine" style={styles.buttonsLine} >
-        <TouchableOpacity style={styles.buttons, styles.buttonsExpand1} onPress={clear} >
+        <TouchableOpacity style={styles.buttons, styles.buttonsExpand1} onPress={reset} >
           <Text style={styles.symbal}>C</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttons} onPress={clear}>
+          <Text style={styles.symbal} >#</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} onPress={calculation}>
           <Text style={styles.symbal} >=</Text>
@@ -280,7 +301,7 @@ const styles = StyleSheet.create({
   },
 
   buttonsExpand1:{
-    flex:3,
+    flex:2,
     width: '20%',
     height:75,
     margin:5,

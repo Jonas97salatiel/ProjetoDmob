@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 export default function App() {
 
@@ -84,6 +85,18 @@ export default function App() {
       return float1 + float2;
     }
 
+    function subtracao(float1, float2){
+      return float1 - float2;
+    }
+
+    function divisao(float1, float2){
+      return float1 / float2;
+    }
+
+    function multiplicacao(float1, float2){
+      return float1 * float2;
+    }
+
 
     
     function calculation(){
@@ -97,7 +110,7 @@ export default function App() {
           case 'somar':
             console.log(`somando  ${count1} + ${count2}`);
             
-            const result = soma(count1, count2);
+            var result = soma(count1, count2);
             setDisplay(String(result));
             setBuffer(result);
             console.log(`count1 = ${count1} `);
@@ -107,23 +120,34 @@ export default function App() {
           break;
 
           case 'subtrair':
-            setDisplay( count1 - count2);
-            setCount1(0);
-            setCount2(0);
+            console.log(`subtraindo  ${count1} + ${count2}`);
+            
+            var result = subtracao(count1, count2);
+            setDisplay(String(result));
+            setBuffer(result);
+            console.log(`count1 = ${count1} `);
+            console.log(`count2 = ${count2} `);
+            console.log(`buffer = ${buffer} `);
            
           break;
 
           case 'multiplicar':
-            setDisplay( count1 * count2);
-            setCount1(0);
-            setCount2(0);
+            var result = multiplicacao(count1, count2);
+            setDisplay(String(result));
+            setBuffer(result);
+            console.log(`count1 = ${count1} `);
+            console.log(`count2 = ${count2} `);
+            console.log(`buffer = ${buffer} `);
             
           break;
 
           case 'dividir':
-            setDisplay( count1 / count2);
-            setCount1(0);
-            setCount2(0);
+            var result = divisao(count1, count2);
+            setDisplay(String(result));
+            setBuffer(result);
+            console.log(`count1 = ${count1} `);
+            console.log(`count2 = ${count2} `);
+            console.log(`buffer = ${buffer} `);
           
           break;
         }
@@ -179,7 +203,7 @@ export default function App() {
           <Text style={styles.symbal}>C</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} onPress={clear}>
-          <Text style={styles.symbal} >#</Text>
+          <Feather name="delete" size={24} color="#EF9B3A" ></Feather>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} onPress={calculation}>
           <Text style={styles.symbal} >=</Text>

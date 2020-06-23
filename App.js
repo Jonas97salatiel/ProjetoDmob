@@ -4,11 +4,11 @@ import { Feather } from '@expo/vector-icons';
 
 export default function App() {
 
-    const [display, setDisplay] = useState(' '); // State que recebe os valores do display
+    const [display, setDisplay] = useState(" "); // State que recebe os valores do display
     const [count1, setCount1] = useState(); 
     var count2;
-    const [operator, setOperator] = useState(' ');
-    const [buffer, setBuffer] = useState();
+    const [operator, setOperator] = useState(" ");
+    const [buffer, setBuffer] = useState(" ");
    
 
 
@@ -17,65 +17,67 @@ export default function App() {
     function handleOperator(operatorOption){
           
 
-      if( !display == ' '){
+      if( !display == " " && operator == " "){
         console.log('iniciado equação');
         switch(operatorOption){     
           case 'somar':
             setOperator(operatorOption);
             setCount1(parseFloat(display));
-            setDisplay(' ');
+            setDisplay(" ");
             
           break;
 
           case 'subtrair':
             setOperator(operatorOption);
             setCount1(parseFloat(display));
-            setDisplay(' ');
+            setDisplay(" ");
             
           break;
 
           case 'multiplicar':
             setOperator(operatorOption);
             setCount1(parseFloat(display));
-            setDisplay(' ');
+            setDisplay(" ");
             
           break;
 
           case 'dividir':
             setOperator(operatorOption);
             setCount1(parseFloat(display));
-            setDisplay(' ');
+            setDisplay(" ");
             
           break;
 
-        }
+        };
         
-      }else if(!buffer == " "){
+      }else if(!buffer == " " || !operator == " "){
         console.log('mudando equação');
         switch(operatorOption){
           case 'somar':
             setOperator(operatorOption);
-            setCount1(buffer);
-            setDisplay(' ');
+            
             
           break;
 
           case 'subtrair':
             setOperator(operatorOption);
+            
            
           break;
 
           case 'multiplicar':
             setOperator(operatorOption);
             
+            
           break;
 
           case 'dividir':
             setOperator(operatorOption);
+           
           
           break;
 
-        }
+        };
 
       }; 
 
@@ -98,21 +100,32 @@ export default function App() {
     }
 
 
+    function percentuation(){
+      
+      count2 = parseFloat(display);
+      let result = count2 / 100;
+      setDisplay(String(result));
+      setBuffer(result);
+
+
+    };
     
     function calculation(){
       
+      let result;
       count2 = parseFloat(display);
 
-      if (!display == ' '){
+      if (!display == " "){
         
         
         switch(operator){
           case 'somar':
             console.log(`somando  ${count1} + ${count2}`);
             
-            var result = soma(count1, count2);
+            result = soma(count1, count2);
             setDisplay(String(result));
             setBuffer(result);
+            setOperator(" ");
             console.log(`count1 = ${count1} `);
             console.log(`count2 = ${count2} `);
             console.log(`buffer = ${buffer} `);
@@ -122,9 +135,10 @@ export default function App() {
           case 'subtrair':
             console.log(`subtraindo  ${count1} + ${count2}`);
             
-            var result = subtracao(count1, count2);
+            result = subtracao(count1, count2);
             setDisplay(String(result));
             setBuffer(result);
+            setOperator(" ");
             console.log(`count1 = ${count1} `);
             console.log(`count2 = ${count2} `);
             console.log(`buffer = ${buffer} `);
@@ -132,9 +146,10 @@ export default function App() {
           break;
 
           case 'multiplicar':
-            var result = multiplicacao(count1, count2);
+            result = multiplicacao(count1, count2);
             setDisplay(String(result));
             setBuffer(result);
+            setOperator(" ");
             console.log(`count1 = ${count1} `);
             console.log(`count2 = ${count2} `);
             console.log(`buffer = ${buffer} `);
@@ -142,19 +157,20 @@ export default function App() {
           break;
 
           case 'dividir':
-            var result = divisao(count1, count2);
+            result = divisao(count1, count2);
             setDisplay(String(result));
             setBuffer(result);
+            setOperator(" ");
             console.log(`count1 = ${count1} `);
             console.log(`count2 = ${count2} `);
             console.log(`buffer = ${buffer} `);
           
           break;
-        }
+        };
 
-      }
+      };
       
-    }
+    };
 
 
 
@@ -165,7 +181,7 @@ export default function App() {
       setDisplay(clear);
       setBuffer(clear);
       if (clear.length = 0){
-        setBuffer(' ');
+        setBuffer(" ");
       };
     };
 
@@ -173,8 +189,9 @@ export default function App() {
 
       setCount1(0);
       count2 = 0 ;
-      setBuffer(' ');
-      setDisplay(' ');
+      setBuffer(" ");
+      setDisplay(" ");
+      setOperator(" ");
 
     };
     
@@ -215,14 +232,18 @@ export default function App() {
         </View>
 
       <View name="buttonsLine" style={styles.buttonsLine} >
-        <TouchableOpacity style={styles.buttons, styles.buttonsExpand1} onPress={reset} >
+        <TouchableOpacity style={styles.buttons} onPress={reset} >
           <Text style={styles.symbal}>C</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} onPress={clear}>
           <Feather name="delete" size={24} color="#EF9B3A" ></Feather>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={calculation}>
-          <Text style={styles.symbal} >=</Text>
+        <TouchableOpacity style={styles.buttons} onPress={percentuation}>
+          <Text style={styles.symbal} >%</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => handleOperator('multiplicar')} >
+          <Text style={styles.symbal} >x</Text>
         </TouchableOpacity>
       </View>
 
@@ -246,9 +267,9 @@ export default function App() {
       </View>
 
       <View name="buttonsLine" style={styles.buttonsLine}>
-      <TouchableOpacity style={styles.buttons} 
-        onPress={() => addDisplayer('4')} >
-          <Text style={styles.numbers} >4</Text>
+        <TouchableOpacity style={styles.buttons} 
+          onPress={() => addDisplayer('4')} >
+            <Text style={styles.numbers} >4</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons} 
           onPress={() => addDisplayer('5')} >
@@ -292,14 +313,13 @@ export default function App() {
           onPress={() => addDisplayer('.')} >
           <Text style={styles.symbal} >.</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} 
-          onPress={() => handleOperator('multiplicar')} >
-          <Text style={styles.symbal} >x</Text>
+        <TouchableOpacity style={styles.buttons} onPress={calculation}>
+          <Text style={styles.symbal} >=</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -4,8 +4,8 @@ import { Feather } from '@expo/vector-icons';
 
 export default function App() {
 
-    const [display, setDisplay] = useState(' ');
-    const [count1, setCount1] = useState();
+    const [display, setDisplay] = useState(' '); // State que recebe os valores do display
+    const [count1, setCount1] = useState(); 
     var count2;
     const [operator, setOperator] = useState(' ');
     const [buffer, setBuffer] = useState();
@@ -167,7 +167,7 @@ export default function App() {
       if (clear.length = 0){
         setBuffer(' ');
       };
-    }
+    };
 
     function reset(){
 
@@ -177,14 +177,30 @@ export default function App() {
       setDisplay(' ');
 
     };
+    
+    
 
     function addDisplayer(caracter){
 
-      if( caracter == '.' && display[display.length - 1] == '.'){
+      var doteCaracter = false;
+
+      for(var c = 0; c <= display.length; c++){
+        
+        if( display[c] === '.' ){
+          doteCaracter = true;
+          break; 
+        };
+      };
+      
+      console.log(doteCaracter);
+
+      if( caracter == '.' && doteCaracter ){
           setDisplay(display);
+          
       }else{
       const addDisplay = display + caracter;
       setDisplay(addDisplay);
+      
       };
     };
 

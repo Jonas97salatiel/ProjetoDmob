@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "dmob",
-    "slug": "dmob",
+    "name": "dmob-Jonas-Salatiel",
+    "slug": "dmobjonassalatiel",
     "platforms": [
       "ios",
       "android",
@@ -26,6 +26,7 @@
     },
     "android": {
       "package": "ca.brentvatne.growlerprowler",
+      "versionCode": 1,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCoM1XmqxpRr_lZ-bVPbmiqlPA-YntjgMk"

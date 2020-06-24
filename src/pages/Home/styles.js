@@ -13,10 +13,7 @@ export default StyleSheet.create({
     
   },
 
-
   apps:{
-    
-
     height: 248,
     backgroundColor:'#fff',
     margin: 10,

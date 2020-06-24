@@ -5,68 +5,67 @@ import styles from './styles';
 
 export default function Calculator(){
 
-  const [display, setDisplay] = useState(" "); // State que recebe os valores do display
-  const [count1, setCount1] = useState(); 
-  var count2;
-  const [operator, setOperator] = useState(" ");
-  const [buffer, setBuffer] = useState(" ");
+  const [display, setDisplay] = useState(" "); // State que recebe os valores do display.
+  const [count1, setCount1] = useState(); // State que recebe o valor do display quando o usuário seleciona uma operação.
+  var count2; // variável que recebe o valor do display para realizar os cálculos.
+  const [operator, setOperator] = useState(" "); // State que recebe a operação selecionada no TouchableOpacity.
+  const [buffer, setBuffer] = useState(" "); // State que recebe o resultado das operação para caso o usuário queira reutilizar o valor.
  
-  function handleOperator(operatorOption){
+  function handleOperator(operatorOption){ // Função que seta a operação solicitada pelo usuário.
         
-
-    if( !display == " " && operator == " "){
+    if( !display == " " && operator == " "){  // Condição não deixa o usuário tentar fazer uma operação com o display vazio.
       console.log('iniciado equação');
-      switch(operatorOption){     
+      switch(operatorOption){  // Condicional para setar a operação de acordo com a opção de operação selecionanda.
         case 'somar':
-          setOperator(operatorOption);
-          setCount1(parseFloat(display));
-          setDisplay(" ");
+          setOperator(operatorOption); // incluindo o operador no state operator.
+          setCount1(parseFloat(display)); // passando o valor do display para o state count01.
+          setDisplay(" "); // limpando o display para que o usuário coloque o segundo numeral da operação.
           
         break;
 
         case 'subtrair':
-          setOperator(operatorOption);
-          setCount1(parseFloat(display));
-          setDisplay(" ");
+          setOperator(operatorOption); // incluindo o operador no state operator.
+          setCount1(parseFloat(display)); // passando o valor do display para o state count01.
+          setDisplay(" "); // limpando o display para que o usuário coloque o segundo numeral da operação.
           
         break;
 
         case 'multiplicar':
-          setOperator(operatorOption);
-          setCount1(parseFloat(display));
-          setDisplay(" ");
+          setOperator(operatorOption); // incluindo o operador no state operator.
+          setCount1(parseFloat(display)); // passando o valor do display para o state count01.
+          setDisplay(" "); // limpando o display para que o usuário coloque o segundo numeral da operação.
           
         break;
 
         case 'dividir':
-          setOperator(operatorOption);
-          setCount1(parseFloat(display));
-          setDisplay(" ");
+          setOperator(operatorOption); // incluindo o operador no state operator.
+          setCount1(parseFloat(display)); // passando o valor do display para o state count01.
+          setDisplay(" "); // limpando o display para que o usuário coloque o segundo numeral da operação.
           
         break;
 
       };
       
-    }else if(!buffer == " " || !operator == " "){
+    }else if(!buffer == " " || !operator == " "){ // Essa verificação garante que o usuário pode alterar a operação caso necessário.
       console.log('mudando equação');
       switch(operatorOption){
         case 'somar':
-          setOperator(operatorOption);
+          setOperator(operatorOption); // Setando nova operação no state operator
 
         break;
 
         case 'subtrair':
-          setOperator(operatorOption);
+          setOperator(operatorOption); // Setando nova operação no state operator
           
         break;
 
         case 'multiplicar':
-          setOperator(operatorOption);
+          setOperator(operatorOption); // Setando nova operação no state operator
           
         break;
 
         case 'dividir':
-          setOperator(operatorOption);
+          setOperator(operatorOption); // Setando nova operação no state operator
          
         break;
 
@@ -76,24 +75,23 @@ export default function Calculator(){
 
   };
 
-  function soma(float1, float2){
+  function soma(float1, float2){ // Função responsável por fazer a soma.
     return float1 + float2;
   }
 
-  function subtracao(float1, float2){
+  function subtracao(float1, float2){ // Função responsável por fazer a subtração.
     return float1 - float2;
   }
 
-  function divisao(float1, float2){
+  function divisao(float1, float2){ // Função responsável por fazer a divisão.
     return float1 / float2;
   }
 
-  function multiplicacao(float1, float2){
+  function multiplicacao(float1, float2){ // Função responsável por fazer a multiplicação.
     return float1 * float2;
   }
 
-
-  function percentuation(){
+  function percentuation(){ // Função responsável por fazer a o calculo do percentual
     
     count2 = parseFloat(display);
     let result = count2 / 100;
@@ -101,21 +99,21 @@ export default function Calculator(){
     setBuffer(result);
   };
   
-  function calculation(){
+  function calculation(){ // Função responsável por realizar a chamado da função de calculo e exibir o resultado na tela.
     
-    let result;
+    let result; 
     count2 = parseFloat(display);
 
-    if (!display == " "){
+    if (!display == " "){ // Função para gantir que o usuário não a acione sem digitar nenhum valor. 
       
-      switch(operator){
-        case 'somar':
-          console.log(`somando  ${count1} + ${count2}`);
+      switch(operator){ // Verificação para saber qual o operador para realizar a operação.
+        case 'somar': 
+          console.log(`somando  ${count1} + ${count2}`); 
           
-          result = soma(count1, count2);
-          setDisplay(String(result));
-          setBuffer(result);
-          setOperator(" ");
+          result = soma(count1, count2); // Chamada da função que irá realizar o calculo.
+          setDisplay(String(result)); // Retorno do resultado para o usuário.
+          setBuffer(result); // Setando o resultado para ser reutilizado caso o usuário queria.
+          setOperator(" "); // Limpando o operator para que o usuário possa solicitar uma nova operação.
           console.log(`count1 = ${count1} `);
           console.log(`count2 = ${count2} `);
           console.log(`buffer = ${buffer} `);
@@ -125,10 +123,10 @@ export default function Calculator(){
         case 'subtrair':
           console.log(`subtraindo  ${count1} + ${count2}`);
           
-          result = subtracao(count1, count2);
-          setDisplay(String(result));
-          setBuffer(result);
-          setOperator(" ");
+          result = subtracao(count1, count2); // Chamada da função que irá realizar o calculo.
+          setDisplay(String(result)); // Retorno do resultado para o usuário.
+          setBuffer(result); // Setando o resultado para ser reutilizado caso o usuário queria.
+          setOperator(" "); // Limpando o operator para que o usuário possa solicitar uma nova operação.
           console.log(`count1 = ${count1} `);
           console.log(`count2 = ${count2} `);
           console.log(`buffer = ${buffer} `);
@@ -136,10 +134,10 @@ export default function Calculator(){
         break;
 
         case 'multiplicar':
-          result = multiplicacao(count1, count2);
-          setDisplay(String(result));
-          setBuffer(result);
-          setOperator(" ");
+          result = multiplicacao(count1, count2); // Chamada da função que irá realizar o calculo.
+          setDisplay(String(result)); // Retorno do resultado para o usuário.
+          setBuffer(result); // Setando o resultado para ser reutilizado caso o usuário queria.
+          setOperator(" "); // Limpando o operator para que o usuário possa solicitar uma nova operação.
           console.log(`count1 = ${count1} `);
           console.log(`count2 = ${count2} `);
           console.log(`buffer = ${buffer} `);
@@ -147,10 +145,10 @@ export default function Calculator(){
         break;
 
         case 'dividir':
-          result = divisao(count1, count2);
-          setDisplay(String(result));
-          setBuffer(result);
-          setOperator(" ");
+          result = divisao(count1, count2); // Chamada da função que irá realizar o calculo.
+          setDisplay(String(result)); // Retorno do resultado para o usuário.
+          setBuffer(result); // Setando o resultado para ser reutilizado caso o usuário queria.
+          setOperator(" "); // Limpando o operator para que o usuário possa solicitar uma nova operação.
           console.log(`count1 = ${count1} `);
           console.log(`count2 = ${count2} `);
           console.log(`buffer = ${buffer} `);
@@ -165,17 +163,17 @@ export default function Calculator(){
 
 
 
-  function clear(){
+  function clear(){ // Função responsável por limpar o display uma posição por vez.
 
-    const clear = display.substring(0, display.length - 1 );
-    setDisplay(clear);
+    const clear = display.substring(0, display.length - 1 ); // Função responsável por subtrair uma posição do array do display.
+    setDisplay(clear); // Retornando o novo valor do display para o usuário
     setBuffer(clear);
-    if (clear.length = 0){
-      setBuffer(" ");
+    if (clear.length = 0){ // Verificação para previnir que o usuário não tente excluir um array sem posição e bug o app.
+      setBuffer(" "); 
     };
   };
 
-  function reset(){
+  function reset(){ // Função para limpar os dados da calculadora.
 
     setCount1(0);
     count2 = 0 ;
@@ -185,11 +183,11 @@ export default function Calculator(){
 
   };
   
-  function addDisplayer(caracter){
+  function addDisplayer(caracter){ // Função responsável por renderizar os números no display para o usuário
 
-    var doteCaracter = false;
+    var doteCaracter = false; // Variável booleana utilizada para verificar se já existe um "." no display.
 
-    for(var c = 0; c <= display.length; c++){
+    for(var c = 0; c <= display.length; c++){ // Verificação do array para que o usuário não coloque mais de 1 "." no display.
       
       if( display[c] === '.' ){
         doteCaracter = true;
@@ -197,13 +195,12 @@ export default function Calculator(){
       };
     };
     
-    console.log(doteCaracter);
 
-    if( caracter == '.' && doteCaracter ){
+    if( caracter == '.' && doteCaracter ){ // Caso haja um "." o app simplimente retorna o que já esta no display.
         setDisplay(display);
         
     }else{
-    const addDisplay = display + caracter;
+    const addDisplay = display + caracter; // Inclusão do novo caracter no display
     setDisplay(addDisplay);
     
     };
@@ -219,7 +216,7 @@ return (
       </View>
 
     <View name="buttonsLine" style={styles.buttonsLine} >
-      <TouchableOpacity style={styles.buttons} onPress={reset} >
+      <TouchableOpacity style={styles.buttons} onPress={reset} > 
         <Text style={styles.symbal}>C</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttons} onPress={clear}>
